@@ -34,13 +34,13 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - **PokéAPI** - For providing comprehensive Pokemon data
   - Website: https://pokeapi.co/
-  - All Pokemon data and sprites used with attribution
 - **Nintendo/Game Freak** - Pokemon and Pokemon character names are trademarks of Nintendo
 - **The Pokemon Community** - For detailed type effectiveness information
+- **Claude Sonnet 4.5** - For the vibe coding sessions and helping debug those tricky type matchup edge cases 🤖
 
 ## 📧 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - your.email@example.com
+Wai Kit - ykit244@gmail.com
 
 Project Link: [https://ykit244.github.io/my-pokemon-team/](https://ykit244.github.io/my-pokemon-team/)
 
