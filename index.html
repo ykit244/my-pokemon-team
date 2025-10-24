@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Team Manager</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Pokémon Team Manager</h1>
+        
+        <div class="main-layout">
+            <!-- Column 1: Search & Team Management -->
+            <div class="column">
+                <div class="section-card">
+                    <h2>🔍 Search Pokémon</h2>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Loading..." autocomplete="off">
+                        <div id="searchSuggestions" class="suggestions"></div>
+                    </div>
+                    <div class="add-buttons">
+                        <button class="btn-party" onclick="addToParty()">Add to Party</button>
+                        <button class="btn-waiting" onclick="addToWaiting()">Add to Waiting</button>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>👥 My Party (Max 6)</h2>
+                    <div id="party" class="party-container">
+                        <div class="empty-message">Party is empty</div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📋 Waiting List</h2>
+                    <div id="waitingList" class="waiting-container">
+                        <div class="empty-message">Waiting list is empty</div>
+                    </div>
+                </div>
+
+                <button onclick="checkMatchup()" style="width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4CAF50'">
+                    ⚔️ Check My Match-up
+                </button>
+                
+                <div id="myRecommendation"></div>
+            </div>
+
+            <!-- Column 2: My Pokemon Details -->
+            <div class="column">
+                <div class="details-card">
+                    <h2>📊 My Pokémon Details</h2>
+                    <div id="myDetailsView" class="empty-state">
+                        Click on your Pokémon to view details
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 3: Opponent Pokemon Details -->
+            <div class="column">
+                <div class="details-card">
+                    <h2>🎯 Opponent's Details</h2>
+                    <div id="oppDetailsView" class="empty-state">
+                        Set opponent to view details
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 4: Opponent Selection -->
+            <div class="column">
+                <div class="section-card">
+                    <h2>🏛️ Select Gym</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px;">
+                        <button onclick="selectGym('brock')" class="gym-btn" id="gym-brock">Brock<br><small>Rock</small></button>
+                        <button onclick="selectGym('misty')" class="gym-btn" id="gym-misty">Misty<br><small>Water</small></button>
+                        <button onclick="selectGym('surge')" class="gym-btn" id="gym-surge">Lt. Surge<br><small>Electric</small></button>
+                        <button onclick="selectGym('erika')" class="gym-btn" id="gym-erika">Erika<br><small>Grass</small></button>
+                        <button onclick="selectGym('koga')" class="gym-btn" id="gym-koga">Koga<br><small>Poison</small></button>
+                        <button onclick="selectGym('sabrina')" class="gym-btn" id="gym-sabrina">Sabrina<br><small>Psychic</small></button>
+                        <button onclick="selectGym('blaine')" class="gym-btn" id="gym-blaine">Blaine<br><small>Fire</small></button>
+                        <button onclick="selectGym('giovanni')" class="gym-btn" id="gym-giovanni">Giovanni<br><small>Ground</small></button>
+                    </div>
+                    <button onclick="resetGym()" style="width: 100%; margin-bottom: 10px; padding: 10px; background: #f44336; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='#d32f2f'" onmouseout="this.style.background='#f44336'">🔄 Reset Gym</button>
+                    <div id="gymInfo" style="background: white; padding: 10px; border-radius: 8px; min-height: 50px; text-align: center; color: #999; font-size: 12px;">
+                        Select a gym to see details
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>🎯 Opponent</h2>
+                    <div class="search-box">
+                        <input type="text" id="oppSearchInput" placeholder="Loading..." autocomplete="off">
+                        <div id="oppSearchSuggestions" class="suggestions"></div>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: flex-start;">
+                        <div class="opponent-slot-container" id="opponentSlot" style="flex: 1;">
+                            <div style="text-align: center; color: #999; padding: 20px; font-size: 12px;">No opponent</div>
+                        </div>
+                        <button onclick="refreshMatchup()" id="refreshBtn" style="padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; display: none; min-width: 80px;" onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4CAF50'" title="Refresh matchup analysis">🔄 Refresh</button>
+                    </div>
+                </div>
+                
+                <div id="oppRecommendation"></div>
+            </div>
+        </div>
+        
+        <!-- Attribution Footer -->
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #e0e0e0; color: #666; font-size: 13px;">
+            <p style="margin: 0;">
+                Pokémon data provided by <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none; font-weight: bold;">PokéAPI</a>
+            </p>
+            <p style="margin: 5px 0 0 0; font-size: 11px; color: #999;">
+                Pokémon and Pokémon character names are trademarks of Nintendo.
+            </p>
+        </div>
+    </div>
+
+    <!-- Replace Modal -->
+    <div id="replaceModal" class="modal">
+        <div class="modal-content">
+            <h3>Replace Pokémon?</h3>
+            <p id="replaceMessage"></p>
+            <div class="modal-buttons">
+                <button class="btn-yes" onclick="confirmReplace(true)">Yes</button>
+                <button class="btn-no" onclick="confirmReplace(false)">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
